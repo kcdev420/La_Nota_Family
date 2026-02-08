@@ -1,0 +1,703 @@
+/* --- VARIABLES Y RESETEO --- */
+:root {
+    --color-fondo: #121212;
+    --color-fondo-sec: #1e1e1e;
+    --color-primario: #ffffff;
+    --color-secundario: #aaaaaa;
+    /* Un color de acento, puedes cambiarlo (ej: un dorado, verde neón, etc.) */
+    --color-acento: #33ff99; 
+    --fuente-principal: 'Arial', 'Helvetica Neue', sans-serif;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth; /* ¡Animación de scroll! */
+    overflow-x: hidden;
+}
+
+body {
+    font-family: var(--fuente-principal);
+    background-color: var(--color-fondo);
+    color: var(--color-primario);
+    line-height: 1.6;
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.section {
+    padding: 6rem 0;
+}
+
+.section h2 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.bg-oscuro {
+    background-color: var(--color-fondo-sec);
+}
+
+/* --- NAVEGACIÓN --- */
+.navbar {
+    background-color: rgba(18, 18, 18, 0.55);
+    backdrop-filter: blur(10px);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    border-bottom: 1px solid #333;
+}
+
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 20px;
+}
+
+.navbar .logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--color-primario);
+    text-decoration: none;
+    letter-spacing: 1px;
+}
+
+.navbar .nav-links {
+    display: flex;
+    list-style: none;
+}
+
+.navbar .nav-links li {
+    margin-left: 1.5rem;
+}
+
+.navbar .nav-links a {
+    color: var(--color-secundario);
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.navbar .nav-links a:hover {
+    color: var(--color-primario);
+}
+
+.hero {
+    height: 100vh;
+    background-color: var(--color-fondo); /* Fondo por defecto */
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #fff;
+    overflow: hidden; /* Importante para el carrusel */
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.65); /* Oscurece las imágenes */
+    z-index: 1;
+}
+
+/* Contenedor del carrusel */
+.carousel-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* Cada slide del carrusel */
+.carousel-slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0; /* Oculto por defecto */
+    transition: opacity 1.5s ease-in-out; /* Transición suave entre slides */
+}
+
+.carousel-slide.active {
+    opacity: 1; /* Slide activo visible */
+}
+
+.carousel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Asegura que la imagen cubra todo */
+    object-position: center;
+    filter: brightness(0.7); /* Oscurece un poco la imagen de fondo */
+}
+
+.hero-content {
+    position: absolute;
+    z-index: 2; /* Para que esté por encima del overlay y las imágenes */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centra el contenido */
+    max-width: 90%;
+}
+
+.hero h1 {
+    font-size: 4rem;
+    margin-bottom: 0.5rem;
+    letter-spacing: 3px;
+    text-shadow: 2px 2px 8px rgba(0,0,0,0.7); /* Sombra para que se lea mejor */
+}
+
+.hero p {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.7);
+}
+
+/* Media query para el carrusel en móviles (reducir tamaño de texto) */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+    .hero p {
+        font-size: 1.2rem;
+    }
+}
+
+.btn-principal {
+    background-color: var(--color-acento);
+    color: #000;
+    padding: 12px 30px;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    white-space: nowrap;
+}
+
+.btn-principal:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px var(--color-acento);
+}
+
+/* --- SECCIÓN MÚSICA --- */
+.grid-musica {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.card-musica {
+    background-color: var(--color-fondo-sec);
+    border: 1px solid #333;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-musica:hover {
+    transform: translateY(-10px); /* ¡Animación de hover! */
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+}
+
+.card-musica img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+}
+
+.card-musica h3 {
+    font-size: 1.5rem;
+    padding: 1.5rem 1.5rem 0.5rem 1.5rem;
+}
+
+.card-musica p {
+    padding: 0 1.5rem 1.5rem 1.5rem;
+    color: var(--color-secundario);
+}
+
+.plataformas-links {
+    padding: 0 1.5rem 1.5rem 1.5rem;
+}
+
+/* PARA PLATAFORMAS DE MÚSICA */
+.plataformas-links a {
+    color: var(--color-secundario);
+    font-size: 1.6rem; /* Un poco más pequeños */
+    margin-right: 0.8rem;
+    transition: color 0.2s ease, transform 0.2s ease; /* Añadimos transform */
+}
+
+.plataformas-links a:hover {
+    color: var(--color-acento);
+    transform: scale(1.1); /* Efecto al pasar el ratón */
+}
+
+/* PARA REDES SOCIALES DEL FOOTER */
+.footer .social-links a {
+    color: var(--color-secundario);
+    font-size: 1.6rem; /* Un poco más pequeños */
+    margin: 0 0.6rem;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.footer .social-links a:hover {
+    color: var(--color-acento);
+    transform: scale(1.1);
+}
+/* PARA REDES SOCIALES DEL FOOTER */
+.footer .social-links a {
+    color: var(--color-secundario);
+    font-size: 1.6rem; /* Un poco más pequeños */
+    margin: 0 0.6rem;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.footer .social-links a:hover {
+    color: var(--color-acento);
+    transform: scale(1.1);
+}
+
+/* --- SECCIÓN EVENTOS --- */
+.lista-eventos {
+    list-style: none;
+}
+
+.lista-eventos li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid #333;
+}
+
+.lista-eventos .fecha {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--color-acento);
+    flex-basis: 100px;
+}
+
+.lista-eventos .lugar {
+    font-size: 1.2rem;
+    flex-grow: 1;
+    margin-left: 2rem;
+}
+
+.btn-secundario {
+    background-color: transparent;
+    border: 2px solid var(--color-acento);
+    color: var(--color-acento);
+    padding: 8px 20px;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-secundario:hover {
+    background-color: var(--color-acento);
+    color: #000;
+}
+
+.btn-secundario.disabled {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+/* --- SECCIÓN TIENDA --- */
+.grid-tienda {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.card-producto {
+    background-color: var(--color-fondo-sec);
+    border: 1px solid #333;
+    border-radius: 8px;
+    text-align: center;
+    padding: 1.5rem;
+    transition: transform 0.3s ease;
+}
+
+.card-producto:hover {
+    transform: translateY(-10px);
+}
+
+.card-producto img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-bottom: 1rem;
+}
+
+/* --- SECCIÓN SOBRE (GALERÍA) --- */
+.sobre-texto {
+    max-width: 700px;
+    margin: 0 auto 3rem auto;
+    text-align: center;
+    font-size: 1.1rem;
+}
+
+.galeria {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.galeria img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+.galeria img:hover {
+    transform: scale(1.03);
+}
+
+/* --- FOOTER --- */
+.footer {
+    text-align: center;
+    padding: 3rem 0;
+    border-top: 1px solid #333;
+}
+
+.footer .social-links {
+    margin-top: 1rem;
+}
+
+.footer .social-links a {
+    color: var(--color-secundario);
+    font-size: 1.8rem;
+    margin: 0 0.75rem;
+    transition: color 0.3s ease;
+}
+
+.footer .social-links a:hover {
+    color: var(--color-acento);
+}
+
+/* --- RESPONSIVE (Para móviles) --- */
+@media (max-width: 768px) {
+    .navbar .container {
+        flex-direction: column;
+    }
+    .navbar .nav-links {
+        margin-top: 1rem;
+    }
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+    .hero p {
+        font-size: 1.2rem;
+    }
+    .lista-eventos li {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    .lista-eventos .lugar {
+        margin-left: 0;
+    }
+    .galeria {
+        grid-template-columns: 1fr;
+    }
+}
+/* --- ESTILOS ADICIONALES PARA MÚSICA --- */
+
+/* Reemplazamos el grid anterior por uno de 2 columnas */
+.musica-video-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Dos columnas de tamaño igual */
+    gap: 2rem;
+}
+
+.musica-item h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.musica-item p {
+    color: var(--color-secundario);
+    margin-bottom: 1.5rem;
+}
+
+/* Este es el TRUCO para que el video de YouTube
+  mantenga la proporción (16:9) en cualquier pantalla.
+*/
+.video-responsive {
+    position: relative;
+    overflow: hidden;
+    padding-top: 56.25%; /* Proporción 16:9 (9 / 16 = 0.5625) */
+    border-radius: 8px;
+}
+
+.video-responsive iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+/* Para Spotify, solo nos aseguramos de que el iframe ocupe todo */
+.musica-item iframe {
+    width: 100%;
+    min-height: 352px; /* Altura estándar de Spotify */
+}
+
+/* Ajuste para móviles (columnas una encima de otra) */
+@media (max-width: 768px) {
+    .musica-video-grid {
+        grid-template-columns: 1fr; /* Una sola columna */
+    }
+}
+/* =========================================
+   REGLAS PARA MÓVILES (TABLETS Y CELULARES)
+   ========================================= */
+
+@media (max-width: 768px) {
+
+    /* --- AJUSTES GENERALES --- */
+    .section {
+        padding: 4rem 0; /* Menos espacio en las secciones */
+    }
+
+    .container {
+        padding: 0 15px; /* Un poco más de espacio en los bordes */
+    }
+
+    /* --- 1. ARREGLO DEL HERO (TEXTO) --- */
+    .hero h1 {
+        font-size: 2.5rem; /* Achica el título principal */
+    }
+    
+    .hero p {
+        font-size: 1.2rem; /* Achica el subtítulo */
+    }
+
+    /* --- 2. ARREGLO DE LA NAVEGACIÓN --- */
+    /* Apila el logo y los links */
+    .navbar .container {
+        flex-direction: column; 
+        padding-top: 1rem;
+    }
+    
+    .navbar .nav-links {
+        margin-top: 1rem;
+        padding-bottom: 0.5rem;
+    }
+    
+    .navbar .nav-links li {
+        margin-left: 0.75rem; /* Menos espacio entre links */
+        margin-right: 0.75rem;
+    }
+
+    /* --- 3. ARREGLO DE GRIDS (COLUMNAS) --- */
+    
+    /* Apila la música y el video (uno encima de otro) */
+    .musica-video-grid {
+        grid-template-columns: 1fr; 
+    }
+    
+    /* Apila los productos de la tienda */
+    .grid-tienda {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Apila las fotos de la galería */
+    .galeria {
+        grid-template-columns: 1fr;
+    }
+
+    /* --- 4. ARREGLO DE LA LISTA DE EVENTOS --- */
+    .lista-eventos li {
+        flex-direction: column; /* Apila los elementos del evento */
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    
+    .lista-eventos .lugar {
+        margin-left: 0; /* Resetea el margen */
+    }
+
+    .lista-eventos .btn-secundario {
+        width: 100%;
+        text-align: center;
+        margin-top: 0.5rem;
+    }
+}
+
+/* Media Query Adicional para Celulares MUY Pequeños */
+@media (max-width: 480px) {
+    .hero h1 {
+        font-size: 2rem; /* Aún más pequeño */
+    }
+
+    .navbar .nav-links {
+        /* Hace que los links se vean en 2 filas si no caben */
+        flex-wrap: wrap; 
+        justify-content: center;
+    }
+
+    .navbar .nav-links li {
+        margin: 0.25rem 0.5rem;
+    }
+}
+/* --- SECCIÓN SERVICIOS --- */
+.grid-servicios {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    text-align: center;
+}
+
+.card-servicio {
+    background-color: var(--color-fondo-sec);
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 2.5rem 1.5rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-servicio:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.6);
+}
+
+.card-servicio i {
+    font-size: 3.5rem;
+    color: var(--color-acento);
+    margin-bottom: 1.5rem;
+}
+
+.card-servicio h3 {
+    font-size: 1.6rem;
+    margin-bottom: 1rem;
+}
+
+.card-servicio p {
+    color: var(--color-secundario);
+    margin-bottom: 1.5rem;
+}
+
+/* Media query para servicios en móviles */
+@media (max-width: 768px) {
+    .grid-servicios {
+        grid-template-columns: 1fr;
+    }
+}
+/* --- SECCIÓN PRÓXIMOS ESTRENOS --- */
+.lista-estrenos {
+    list-style: none;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.lista-estrenos li {
+    display: flex;
+    flex-wrap: wrap; /* Permite que los elementos se envuelvan en móvil */
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid #333;
+}
+
+.lista-estrenos li:last-child {
+    border-bottom: none; /* No hay borde en el último elemento */
+}
+
+.lista-estrenos .fecha {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: var(--color-acento);
+    flex-basis: 100px; /* Ancho fijo para la fecha */
+    min-width: 80px; /* Para móviles */
+}
+
+.lista-estrenos .titulo {
+    font-size: 1.2rem;
+    flex-grow: 1; /* Ocupa el espacio restante */
+    margin-left: 2rem;
+}
+
+.animar-container {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem; /* Espacio entre el botón, el número y el icono */
+    margin-left: auto; /* Empuja el contenedor a la derecha */
+}
+
+.btn-animar {
+    background-color: var(--color-acento);
+    color: #000;
+    padding: 8px 18px;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.btn-animar:hover {
+    transform: scale(1.05);
+    background-color: #00e676; /* Un verde un poco diferente al pasar el ratón */
+}
+
+.animar-container .corazones {
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.animar-container .fas.fa-heart {
+    color: #e63946; /* Color rojo para el corazón */
+    font-size: 1.2rem;
+}
+
+/* Media query para la lista de estrenos en móviles */
+@media (max-width: 768px) {
+    .lista-estrenos li {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.8rem;
+        padding: 1rem 0;
+    }
+
+    .lista-estrenos .titulo {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .animar-container {
+        margin-left: 0; /* Alinea a la izquierda en móvil */
+        width: 100%;
+        justify-content: flex-end; /* Alinea a la derecha dentro de su espacio */
+    }
+}
